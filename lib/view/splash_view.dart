@@ -1,3 +1,4 @@
+import 'package:ecommerce/utils/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -59,7 +60,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
             children: [
               ScaleTransition(
                 scale: scaleAnimation,
-                child: Image.asset("assets/logo.png", height: 150, fit: BoxFit.cover)),
+                child: Image.asset(Assets.logo, height: 150, fit: BoxFit.cover)),
               SlideTransition(
                 position: leftTextAnimation,
                 child: Text(
