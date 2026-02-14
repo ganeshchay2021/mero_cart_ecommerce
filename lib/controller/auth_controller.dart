@@ -1,12 +1,12 @@
 import 'package:ecommerce/routes/app_routes.dart';
 import 'package:get/get.dart';
 
-class AuthController extends GetxController{
-  RxBool isLoggedIn=false.obs;
+class AuthController extends GetxController {
+  RxBool isLoggedIn = false.obs;
 
-  void checkAuth(){
-    Future.delayed(Duration(seconds: 4), (){
-        Get.offNamed(AppRoutes.login);
+  void checkAuth() {
+    Future.delayed(Duration(seconds: 5), () {
+      Get.offNamed(AppRoutes.login);
     });
   }
 
