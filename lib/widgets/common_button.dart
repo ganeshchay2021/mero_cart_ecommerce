@@ -1,6 +1,8 @@
+import 'package:ecommerce/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class CommonButton extends StatelessWidget {
+class CommonButton extends GetView<AuthController> {
   final String buttonName;
   final VoidCallback onTap;
   const CommonButton({
@@ -35,14 +37,20 @@ class CommonButton extends StatelessWidget {
           ),
           child: Align(
             alignment: Alignment.center,
-            child: Text(
-              buttonName,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.black,
-              ),
-            ),
+            child: Obx(() {
+              if (controller.isLoading.isTrue) {
+                return CircularProgressIndicator.adaptive();
+              } else {
+                return Text(
+                  buttonName,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
+                );
+              }
+            }),
           ),
         ),
       ),

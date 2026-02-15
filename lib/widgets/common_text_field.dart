@@ -8,9 +8,11 @@ class CommonTextField extends StatefulWidget {
   final bool isPasswordField;
   final TextInputType? textInputType;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
   const CommonTextField({
     super.key,
     required this.titleText,
+    required this.validator,
     required this.icon,
     this.textInputType,
     required this.hintText,
@@ -41,6 +43,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
         ),
         Gap(10),
         TextFormField(
+          validator: widget.validator,
           controller: widget.controller,
           obscureText: showPassword,
           keyboardType: widget.textInputType,
@@ -66,6 +69,17 @@ class _CommonTextFieldState extends State<CommonTextField> {
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(10),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: Colors.red,
+                width: 1,
+              ), // Optional: show a red line
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: Colors.red, width: 2),
             ),
           ),
         ),
