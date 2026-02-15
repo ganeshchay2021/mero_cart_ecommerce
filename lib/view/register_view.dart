@@ -208,7 +208,6 @@ class RegisterView extends GetView<AuthController> {
                                     ),
                                   ),
                                   messageText: Text(
-                                    
                                         "Pasword and Confirm password doesn't match",
                                     style: const TextStyle(
                                       color: Colors.white,

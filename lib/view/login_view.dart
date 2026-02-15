@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 class LoginView extends GetView<AuthController> {
   LoginView({super.key});
 
-  final GlobalKey _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +21,7 @@ class LoginView extends GetView<AuthController> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         height: size.height,
         width: double.infinity,
@@ -80,174 +81,185 @@ class LoginView extends GetView<AuthController> {
                   ),
                 ),
                 child: SingleChildScrollView(
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        //Welcome text
-                        Text(
-                          "Welcome Back",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 20,
-                          ),
+                  child: Column(
+                    children: [
+                      //Welcome text
+                      Text(
+                        "Welcome Back",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20,
                         ),
-                        Gap(20),
+                      ),
+                      Gap(20),
 
-                        //informative text
-                        Text(
-                          "Sign to enjoy the best Beauty experience",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black54,
-                            letterSpacing: 1.5,
-                          ),
+                      //informative text
+                      Text(
+                        "Sign to enjoy the best Beauty experience",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black54,
+                          letterSpacing: 1.5,
                         ),
+                      ),
 
-                        Gap(20),
+                      Gap(20),
 
-                        //Email Text Field
-                        CommonTextField(
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return "Email is required";
-                            } else {
-                              return null;
-                            }
-                          },
-                          controller: controller.emailController,
-                          textInputType: TextInputType.emailAddress,
-                          titleText: "Email",
-                          icon: Icons.email_outlined,
-                          hintText: "Email",
-                        ),
-
-                        Gap(20),
-
-                        //Password Text Field
-                        CommonTextField(
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return "Password is required";
-                            } else {
-                              return null;
-                            }
-                          },
-                          controller: controller.passwordController,
-                          titleText: "Password",
-                          icon: Icons.lock_outline,
-                          hintText: "Password",
-                          isPasswordField: true,
-                        ),
-
-                        //Fotget Password Button
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                      //Email Text Field
+                      Form(
+                        key: _formKey,
+                        child: Column(
                           children: [
-                            TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                "Forget Passport?",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        Gap(10),
-
-                        //Login Button
-                        CommonButton(buttonName: "Login", onTap: () {}),
-
-                        Gap(20),
-
-                        Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: .center,
-                              children: [
-                                Expanded(
-                                  child: Divider(
-                                    color: Colors.grey,
-                                    thickness: 1,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text(
-                                    "Or login with",
-                                    style: TextStyle(
-                                      color: Colors.black38,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Divider(
-                                    color: Colors.grey,
-                                    thickness: 1,
-                                  ),
-                                ),
-                              ],
+                            CommonTextField(
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Email is required";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              controller: controller.emailController,
+                              textInputType: TextInputType.emailAddress,
+                              titleText: "Email",
+                              icon: Icons.email_outlined,
+                              hintText: "Email",
                             ),
 
                             Gap(20),
 
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CommonIconButton(
-                                  icon: FontAwesomeIcons.google,
-                                  onTap: () {},
-                                  iconColor: Colors.red,
-                                ),
-                                Gap(10),
-                                CommonIconButton(
-                                  icon: FontAwesomeIcons.apple,
-                                  onTap: () {},
-                                  iconColor: Colors.black,
-                                ),
-                                Gap(10),
-                                CommonIconButton(
-                                  icon: FontAwesomeIcons.facebook,
-                                  onTap: () {},
-                                  iconColor: Colors.blue,
-                                ),
-                              ],
-                            ),
-
-                            Gap(16),
-
-                            RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 16,
-                                ),
-                                text: "Don't have an account?  ",
-                                children: [
-                                  TextSpan(
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        Get.toNamed(AppRoutes.register);
-                                      },
-                                    text: "Sign up",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            //Password Text Field
+                            CommonTextField(
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return "Password is required";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              controller: controller.passwordController,
+                              titleText: "Password",
+                              icon: Icons.lock_outline,
+                              hintText: "Password",
+                              isPasswordField: true,
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+
+                      //Fotget Password Button
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Forget Passport?",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      Gap(10),
+
+                      //Login Button
+                      CommonButton(
+                        buttonName: "Login",
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            controller.loginUser();
+                          }
+                        },
+                      ),
+
+                      Gap(20),
+
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: .center,
+                            children: [
+                              Expanded(
+                                child: Divider(
+                                  color: Colors.grey,
+                                  thickness: 1,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  "Or login with",
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Divider(
+                                  color: Colors.grey,
+                                  thickness: 1,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          Gap(20),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CommonIconButton(
+                                icon: FontAwesomeIcons.google,
+                                onTap: () {},
+                                iconColor: Colors.red,
+                              ),
+                              Gap(10),
+                              CommonIconButton(
+                                icon: FontAwesomeIcons.apple,
+                                onTap: () {},
+                                iconColor: Colors.black,
+                              ),
+                              Gap(10),
+                              CommonIconButton(
+                                icon: FontAwesomeIcons.facebook,
+                                onTap: () {},
+                                iconColor: Colors.blue,
+                              ),
+                            ],
+                          ),
+
+                          Gap(16),
+
+                          RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: 16,
+                              ),
+                              text: "Don't have an account?  ",
+                              children: [
+                                TextSpan(
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Get.toNamed(AppRoutes.register);
+                                    },
+                                  text: "Sign up",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
