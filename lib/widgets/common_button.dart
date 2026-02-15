@@ -39,7 +39,7 @@ class CommonButton extends GetView<AuthController> {
             alignment: Alignment.center,
             child: Obx(() {
               if (controller.isLoading.isTrue) {
-                return CircularProgressIndicator.adaptive();
+                return CircularProgressIndicator(color: Colors.white, strokeWidth: 5,);
               } else {
                 return Text(
                   buttonName,
