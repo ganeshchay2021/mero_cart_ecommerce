@@ -3,8 +3,12 @@ import 'package:ecommerce/routes/app_pages.dart';
 import 'package:ecommerce/view/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -18,7 +22,7 @@ class MyApp extends StatelessWidget {
       initialBinding: ControllerBindings(),
       getPages: AppPages.routes,
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: SplashView()
+      home: SplashView(),
     );
   }
 }

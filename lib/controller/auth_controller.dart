@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:ecommerce/controller/storage_controlle.dart';
+import 'package:ecommerce/controller/storage_controller.dart';
 import 'package:ecommerce/model/login_model.dart';
 import 'package:ecommerce/model/register_model.dart';
 import 'package:ecommerce/routes/app_routes.dart';
@@ -9,6 +9,8 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;
+
+  RxInt stateIndex=0.obs;
 
   //Registration Success response
   var registerResponce = RegisterModel(
@@ -50,7 +52,7 @@ class AuthController extends GetxController {
       if (token == null) {
         Get.offNamed(AppRoutes.login);
       } else {
-        Get.offNamed(AppRoutes.home);
+        Get.offNamed(AppRoutes.bottomNavBar);
       }
     });
   }
@@ -162,6 +164,8 @@ class AuthController extends GetxController {
         //save token
         StorageController().saveToken(loginResponse.value.token!);
         isLoading(false);
+        emailController.clear();
+        passwordController.clear();
         Get.offNamedUntil(AppRoutes.home, (route) => false);
         Get.snackbar(
           "Success",
@@ -214,4 +218,5 @@ class AuthController extends GetxController {
     passwordController.dispose();
     confirmPasswordController.dispose();
   }
+
 }

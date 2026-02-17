@@ -291,6 +291,10 @@ class RegisterView extends GetView<AuthController> {
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
                                         Get.back();
+                                        controller.nameController.clear();
+                                        controller.emailController.clear();
+                                        controller.passwordController.clear();
+                                        controller.confirmPasswordController.clear();
                                       },
                                     text: "Login",
                                     style: TextStyle(

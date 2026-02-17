@@ -246,6 +246,8 @@ class LoginView extends GetView<AuthController> {
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       Get.toNamed(AppRoutes.register);
+                                      controller.emailController.clear();
+                                      controller.passwordController.clear();
                                     },
                                   text: "Sign up",
                                   style: TextStyle(
