@@ -37,20 +37,14 @@ class CommonButton extends GetView<AuthController> {
           ),
           child: Align(
             alignment: Alignment.center,
-            child: Obx(() {
-              if (controller.isLoading.isTrue) {
-                return CircularProgressIndicator(color: Colors.white, strokeWidth: 5,);
-              } else {
-                return Text(
-                  buttonName,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
-                );
-              }
-            }),
+            child: Text(
+              buttonName,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
+            ),
           ),
         ),
       ),
