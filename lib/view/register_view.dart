@@ -5,6 +5,7 @@ import 'package:ecommerce/widgets/common_icon_button.dart';
 import 'package:ecommerce/widgets/common_text_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -188,11 +189,13 @@ class RegisterView extends GetView<AuthController> {
                         //Login Button
                         CommonButton(
                           buttonName: "Sign Up",
-                          onTap: () {
+                          onTap: () async{
                             if (_formKey.currentState!.validate()) {
                               if (controller.passwordController.text ==
                                   controller.confirmPasswordController.text) {
-                                controller.registerUser();
+                                Loader.show(context);
+                               await controller.registerUser();
+                                Loader.hide();
                               } else {
                                 Get.snackbar(
                                   "",
@@ -208,7 +211,7 @@ class RegisterView extends GetView<AuthController> {
                                     ),
                                   ),
                                   messageText: Text(
-                                        "Pasword and Confirm password doesn't match",
+                                    "Pasword and Confirm password doesn't match",
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
@@ -294,7 +297,8 @@ class RegisterView extends GetView<AuthController> {
                                         controller.nameController.clear();
                                         controller.emailController.clear();
                                         controller.passwordController.clear();
-                                        controller.confirmPasswordController.clear();
+                                        controller.confirmPasswordController
+                                            .clear();
                                       },
                                     text: "Login",
                                     style: TextStyle(

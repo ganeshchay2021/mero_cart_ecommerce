@@ -1,4 +1,5 @@
 import 'package:ecommerce/controller/auth_controller.dart';
+import 'package:ecommerce/controller/storage_controller.dart';
 import 'package:ecommerce/routes/app_routes.dart';
 import 'package:ecommerce/utils/assets.dart';
 import 'package:ecommerce/widgets/common_button.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce/widgets/common_icon_button.dart';
 import 'package:ecommerce/widgets/common_text_field.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -19,7 +21,7 @@ class LoginView extends GetView<AuthController> {
   Widget build(BuildContext context) {
     //variables Declaration
     final size = MediaQuery.of(context).size;
-
+    final token = StorageController().getToken();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -45,13 +47,37 @@ class LoginView extends GetView<AuthController> {
               left: 0,
               child: Column(
                 children: [
-                  Text(
-                    textAlign: TextAlign.center,
-                    "Mero Cart",
-                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          "Mero Cart",
+                          style: Theme.of(context).textTheme.headlineLarge!
+                              .copyWith(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                      ),
+
+                      token==null? OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              foregroundColor: Colors.white,
+                            ),
+                            onPressed: () {
+                              Get.offNamedUntil(AppRoutes.home, (route)=> false);
+                            },
+                            child: Text(
+                              textAlign: TextAlign.center,
+                              "Skip",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ): SizedBox(),
+
+                      Gap(20),
+                    ],
                   ),
                   Gap(20),
                   Image.asset(Assets.logo, height: 120),
@@ -168,9 +194,11 @@ class LoginView extends GetView<AuthController> {
                       //Login Button
                       CommonButton(
                         buttonName: "Login",
-                        onTap: () {
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            controller.loginUser();
+                            Loader.show(context);
+                            await controller.loginUser();
+                            Loader.hide();
                           }
                         },
                       ),

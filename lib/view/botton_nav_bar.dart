@@ -1,4 +1,5 @@
 import 'package:ecommerce/controller/auth_controller.dart';
+import 'package:ecommerce/utils/assets.dart';
 import 'package:ecommerce/view/cart_view..dart';
 import 'package:ecommerce/view/home_view.dart';
 import 'package:ecommerce/view/profile_view.dart';
@@ -16,7 +17,7 @@ class BottonNavBar extends GetView<AuthController> {
       bottomNavigationBar: Obx(
         () => NavigationBar(
           backgroundColor: Colors.white,
-          indicatorColor: Colors.amber.withOpacity(0.5),
+          indicatorColor: Assets.appColor.withOpacity(0.5),
           selectedIndex: controller.stateIndex.value,
           onDestinationSelected: (value) {
             controller.stateIndex.value = value;

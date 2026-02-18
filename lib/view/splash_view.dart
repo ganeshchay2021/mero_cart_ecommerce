@@ -1,6 +1,9 @@
+import 'package:ecommerce/controller/storage_controller.dart';
+import 'package:ecommerce/routes/app_routes.dart';
 import 'package:ecommerce/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -9,7 +12,8 @@ class SplashView extends StatefulWidget {
   State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashViewState extends State<SplashView> with SingleTickerProviderStateMixin {
+class _SplashViewState extends State<SplashView>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> leftTextAnimation;
   late Animation<Offset> rightTextAnimation;
@@ -18,19 +22,38 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: Duration(seconds: 3));
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 3),
+    );
 
-    leftTextAnimation = Tween<Offset>(begin: Offset(-1.5, 0), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+    leftTextAnimation = Tween<Offset>(
+      begin: Offset(-1.5, 0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
 
-    rightTextAnimation = Tween<Offset>(begin: Offset(1.5, 0), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
-    
-    scaleAnimation = Tween<double>(begin: 0.0, end: 1.0)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
-    
+    rightTextAnimation = Tween<Offset>(
+      begin: Offset(1.5, 0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+
+    scaleAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
+
     // Start the animation
     _controller.forward();
+
+    Future.delayed(Duration(seconds: 5), () {
+      final token = StorageController().getToken();
+
+      if(token==null){
+        Get.offNamed(AppRoutes.home);
+      }else{
+        Get.offNamed(AppRoutes.bottomNavBar);
+      }
+    });
   }
 
   @override
@@ -60,7 +83,8 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
             children: [
               ScaleTransition(
                 scale: scaleAnimation,
-                child: Image.asset(Assets.logo, height: 150, fit: BoxFit.cover)),
+                child: Image.asset(Assets.logo, height: 150, fit: BoxFit.cover),
+              ),
               SlideTransition(
                 position: leftTextAnimation,
                 child: Text(
@@ -68,7 +92,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                   "Mero Cart",
                   style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                     color: Colors.red.shade300,
-                
+
                     fontSize: 30,
                     fontWeight: FontWeight.w500,
                   ),
