@@ -5,19 +5,19 @@ class ProductModel {
     });
 
     final bool? success;
-    final List<Datum> data;
+    final List<Product> data;
 
     factory ProductModel.fromJson(Map<String, dynamic> json){ 
         return ProductModel(
             success: json["success"],
-            data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            data: json["data"] == null ? [] : List<Product>.from(json["data"]!.map((x) => Product.fromJson(x))),
         );
     }
 
 }
 
-class Datum {
-    Datum({
+class Product {
+    Product({
         required this.id,
         required this.title,
         required this.description,
@@ -39,8 +39,8 @@ class Datum {
     final String? image;
     final String? category;
 
-    factory Datum.fromJson(Map<String, dynamic> json){ 
-        return Datum(
+    factory Product.fromJson(Map<String, dynamic> json){ 
+        return Product(
             id: json["id"],
             title: json["title"],
             description: json["description"],
