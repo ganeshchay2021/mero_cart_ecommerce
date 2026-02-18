@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 class AuthController extends GetxController {
   RxBool isLoading = false.obs;
 
-  RxInt stateIndex=0.obs;
+  RxInt stateIndex = 0.obs;
 
   //Registration Success response
   var registerResponce = RegisterModel(
@@ -48,13 +48,11 @@ class AuthController extends GetxController {
   //Splash Logic
   void checkAuth() {
     final token = StorageController().getToken();
-    Future.delayed(Duration(seconds: 5), () {
-      if (token == null) {
-        Get.offNamed(AppRoutes.login);
-      } else {
-        Get.offNamed(AppRoutes.bottomNavBar);
-      }
-    });
+    if (token == null) {
+      Get.toNamed(AppRoutes.login);
+    } else {
+      Get.offNamed(AppRoutes.bottomNavBar);
+    }
   }
 
   //User Registration Logic
@@ -101,7 +99,6 @@ class AuthController extends GetxController {
         }
       } else {
         registerResponce.value = RegisterModel.fromJson(response.data);
-
         nameController.clear();
         emailController.clear();
         passwordController.clear();
@@ -166,7 +163,7 @@ class AuthController extends GetxController {
         isLoading(false);
         emailController.clear();
         passwordController.clear();
-        Get.offNamedUntil(AppRoutes.home, (route) => false);
+        Get.offNamedUntil(AppRoutes.bottomNavBar, (route) => false);
         Get.snackbar(
           "Success",
           "${loginResponse.value.message}",
@@ -192,23 +189,25 @@ class AuthController extends GetxController {
   }
 
   //logout logic
-  void logout() {
+  Future<void> logout() async {
     StorageController().deleteToken();
-    Get.offNamedUntil(AppRoutes.login, (route) => false);
-    Get.snackbar(
-      "Success",
-      "Logout Success",
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-      duration: Duration(seconds: 2),
-    );
+    await Future.delayed(Duration(seconds: 3), () {
+      Get.offNamedUntil(AppRoutes.login, (route) => false);
+      Get.snackbar(
+        "Success",
+        "Logout Success",
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        duration: Duration(seconds: 2),
+      );
+    });
   }
 
-  @override
-  void onInit() {
-    checkAuth();
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   checkAuth();
+  //   super.onInit();
+  // }
 
   @override
   void onClose() {
@@ -218,5 +217,4 @@ class AuthController extends GetxController {
     passwordController.dispose();
     confirmPasswordController.dispose();
   }
-
 }
