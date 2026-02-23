@@ -23,7 +23,7 @@ class ProductCardWidget extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 150,
+                  height: 165,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -65,7 +65,7 @@ class ProductCardWidget extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          "Rs.${product.price}",
+                          "रु. ${product.price}",
                           style: TextStyle(
                             color: Colors.red,
                             fontSize: 18,

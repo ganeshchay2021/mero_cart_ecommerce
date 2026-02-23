@@ -12,6 +12,13 @@ class AuthController extends GetxController {
 
   RxInt stateIndex = 0.obs;
 
+  RxBool showPassword=true.obs;
+
+  //login Password Toggle
+  void passwordToggle(){
+    showPassword.value = !showPassword.value;
+  }
+
   //Registration Success response
   var registerResponce = RegisterModel(
     success: "false",

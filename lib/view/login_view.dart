@@ -61,20 +61,25 @@ class LoginView extends GetView<AuthController> {
                         ),
                       ),
 
-                      token==null? OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.black,
-                              foregroundColor: Colors.white,
-                            ),
-                            onPressed: () {
-                              Get.offNamedUntil(AppRoutes.home, (route)=> false);
-                            },
-                            child: Text(
-                              textAlign: TextAlign.center,
-                              "Skip",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                          ): SizedBox(),
+                      token == null
+                          ? OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: Colors.black,
+                                foregroundColor: Colors.white,
+                              ),
+                              onPressed: () {
+                                Get.offNamedUntil(
+                                  AppRoutes.home,
+                                  (route) => false,
+                                );
+                              },
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "Skip",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            )
+                          : SizedBox(),
 
                       Gap(20),
                     ],

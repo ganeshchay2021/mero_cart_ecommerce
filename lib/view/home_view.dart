@@ -91,29 +91,75 @@ class HomeView extends GetView<ProductController> {
                 Gap(10),
                 CarouselSlider(
                   items: controller.productResponse.value.data.map((e) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.grey.shade200),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadiusGeometry.circular(10),
-                        child: CachedNetworkImage(
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          imageUrl: "${e.image}",
-                          placeholder: (context, url) {
-                            return Center(
-                              child: CircularProgressIndicator.adaptive(),
-                            );
-                          },
-                          errorWidget: (context, url, error) => Icon(
-                            Icons.error_outline,
-                            color: Colors.red,
-                            size: 50,
+                    return Stack(
+                      children: [
+                        Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey.shade200),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadiusGeometry.circular(10),
+                            child: CachedNetworkImage(
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                              imageUrl: "${e.image}",
+                              placeholder: (context, url) {
+                                return Center(
+                                  child: CircularProgressIndicator.adaptive(),
+                                );
+                              },
+                              errorWidget: (context, url, error) => Icon(
+                                Icons.error_outline,
+                                color: Colors.red,
+                                size: 50,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            padding: EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: Colors.black45,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10),
+                              ),
+                            ),
+                            child: RichText(
+                              text: TextSpan(
+                                text: "Get up to ",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: "10% ",
+                                    style: TextStyle(
+                                      color: Colors.green,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: " Discount",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   }).toList(),
                   options: CarouselOptions(

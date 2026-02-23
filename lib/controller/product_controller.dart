@@ -19,15 +19,16 @@ class ProductController extends GetxController {
   // Set the default to "All" instead of ""
   RxString cateGoryName = "".obs;
 
+  //product quantity variables
+  RxInt productQuantity = 1.obs;
+
+  //fetch FilteredProducts
   List<Product> get filteredProducts {
     final products = productResponse.value.data;
     final selected = cateGoryName.value;
 
-    if (selected == "All" || selected == "") {
-      return products;
-    } else {
-      return products.where((p) => p.category == selected).toList();
-    }
+    if (selected == "All" || selected == "") return products;
+    return products.where((p) => p.category == selected).toList();
   }
 
   //fetch Product Method
